@@ -1,0 +1,156 @@
+[2024-12-09T15:42:35.785+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-01-13T00:00:00+00:00 [queued]>
+[2024-12-09T15:42:35.795+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-01-13T00:00:00+00:00 [queued]>
+[2024-12-09T15:42:35.795+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2024-12-09T15:42:35.810+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): fetch_manufacturer_data> on 2024-01-13 00:00:00+00:00
+[2024-12-09T15:42:35.813+0000] {standard_task_runner.py:57} INFO - Started process 157 to run task
+[2024-12-09T15:42:35.816+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'manufacturer_etl', 'fetch_manufacturer_data', 'scheduled__2024-01-13T00:00:00+00:00', '--job-id', '28', '--raw', '--subdir', 'DAGS_FOLDER/manufacturer_etl.py', '--cfg-path', '/tmp/tmpw6uwl65f']
+[2024-12-09T15:42:35.818+0000] {standard_task_runner.py:85} INFO - Job 28: Subtask fetch_manufacturer_data
+[2024-12-09T15:42:35.868+0000] {task_command.py:410} INFO - Running <TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-01-13T00:00:00+00:00 [running]> on host 782927b5dd22
+[2024-12-09T15:42:35.970+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='manufacturer_etl' AIRFLOW_CTX_TASK_ID='fetch_manufacturer_data' AIRFLOW_CTX_EXECUTION_DATE='2024-01-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-01-13T00:00:00+00:00'
+[2024-12-09T15:42:35.971+0000] {manufacturer_etl.py:37} INFO - Fetching manufacturer details from the API.
+[2024-12-09T15:42:43.982+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/connection.py", line 175, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/util/connection.py", line 72, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/usr/local/lib/python3.7/socket.py", line 752, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/connectionpool.py", line 721, in urlopen
+    chunked=chunked,
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/connectionpool.py", line 403, in _make_request
+    self._validate_conn(conn)
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/connectionpool.py", line 1053, in _validate_conn
+    conn.connect()
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/connection.py", line 363, in connect
+    self.sock = conn = self._new_conn()
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/connection.py", line 187, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x7f49d315b710>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/adapters.py", line 497, in send
+    chunked=chunked,
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/connectionpool.py", line 799, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='vpic.nhtsa.dot.gov', port=443): Max retries exceeded with url: /api/vehicles/getallmanufacturers?format=json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f49d315b710>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/manufacturer_etl.py", line 38, in fetch_manufacturer_data
+    response = requests.get(API_URL)
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/adapters.py", line 519, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='vpic.nhtsa.dot.gov', port=443): Max retries exceeded with url: /api/vehicles/getallmanufacturers?format=json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f49d315b710>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))
+[2024-12-09T15:42:44.018+0000] {taskinstance.py:1350} INFO - Marking task as FAILED. dag_id=manufacturer_etl, task_id=fetch_manufacturer_data, execution_date=20240113T000000, start_date=20241209T154235, end_date=20241209T154244
+[2024-12-09T15:42:44.031+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 28 for task fetch_manufacturer_data (HTTPSConnectionPool(host='vpic.nhtsa.dot.gov', port=443): Max retries exceeded with url: /api/vehicles/getallmanufacturers?format=json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f49d315b710>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution')); 157)
+[2024-12-09T15:42:44.072+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2024-12-09T15:42:44.091+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-12-09T16:23:15.106+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-01-13T00:00:00+00:00 [queued]>
+[2024-12-09T16:23:15.125+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-01-13T00:00:00+00:00 [queued]>
+[2024-12-09T16:23:15.126+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2024-12-09T16:23:15.153+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): fetch_manufacturer_data> on 2024-01-13 00:00:00+00:00
+[2024-12-09T16:23:15.160+0000] {standard_task_runner.py:57} INFO - Started process 186 to run task
+[2024-12-09T16:23:15.166+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'manufacturer_etl', 'fetch_manufacturer_data', 'scheduled__2024-01-13T00:00:00+00:00', '--job-id', '133', '--raw', '--subdir', 'DAGS_FOLDER/manufacturer_etl.py', '--cfg-path', '/tmp/tmpgro_6p37']
+[2024-12-09T16:23:15.168+0000] {standard_task_runner.py:85} INFO - Job 133: Subtask fetch_manufacturer_data
+[2024-12-09T16:23:15.267+0000] {task_command.py:410} INFO - Running <TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-01-13T00:00:00+00:00 [running]> on host 651f030c76c5
+[2024-12-09T16:23:15.486+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='manufacturer_etl' AIRFLOW_CTX_TASK_ID='fetch_manufacturer_data' AIRFLOW_CTX_EXECUTION_DATE='2024-01-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-01-13T00:00:00+00:00'
+[2024-12-09T16:23:15.488+0000] {manufacturer_etl.py:37} INFO - Fetching manufacturer details from the API.
+[2024-12-09T16:23:23.505+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/connection.py", line 175, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/util/connection.py", line 72, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/usr/local/lib/python3.7/socket.py", line 752, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/connectionpool.py", line 721, in urlopen
+    chunked=chunked,
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/connectionpool.py", line 403, in _make_request
+    self._validate_conn(conn)
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/connectionpool.py", line 1053, in _validate_conn
+    conn.connect()
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/connection.py", line 363, in connect
+    self.sock = conn = self._new_conn()
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/connection.py", line 187, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x7fa0be849d10>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/adapters.py", line 497, in send
+    chunked=chunked,
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/connectionpool.py", line 799, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='vpic.nhtsa.dot.gov', port=443): Max retries exceeded with url: /api/vehicles/getallmanufacturers?format=json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7fa0be849d10>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/manufacturer_etl.py", line 38, in fetch_manufacturer_data
+    response = requests.get(API_URL)
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/adapters.py", line 519, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='vpic.nhtsa.dot.gov', port=443): Max retries exceeded with url: /api/vehicles/getallmanufacturers?format=json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7fa0be849d10>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))
+[2024-12-09T16:23:23.583+0000] {taskinstance.py:1350} INFO - Marking task as FAILED. dag_id=manufacturer_etl, task_id=fetch_manufacturer_data, execution_date=20240113T000000, start_date=20241209T162315, end_date=20241209T162323
+[2024-12-09T16:23:23.660+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 133 for task fetch_manufacturer_data (HTTPSConnectionPool(host='vpic.nhtsa.dot.gov', port=443): Max retries exceeded with url: /api/vehicles/getallmanufacturers?format=json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7fa0be849d10>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution')); 186)
+[2024-12-09T16:23:23.740+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2024-12-09T16:23:23.831+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-12-09T17:22:26.233+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-01-13T00:00:00+00:00 [queued]>
+[2024-12-09T17:22:26.252+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-01-13T00:00:00+00:00 [queued]>
+[2024-12-09T17:22:26.253+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2024-12-09T17:22:26.294+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): fetch_manufacturer_data> on 2024-01-13 00:00:00+00:00
+[2024-12-09T17:22:26.302+0000] {standard_task_runner.py:57} INFO - Started process 148 to run task
+[2024-12-09T17:22:26.307+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'manufacturer_etl', 'fetch_manufacturer_data', 'scheduled__2024-01-13T00:00:00+00:00', '--job-id', '28', '--raw', '--subdir', 'DAGS_FOLDER/manufacturer_etl.py', '--cfg-path', '/tmp/tmp4c4g_5ch']
+[2024-12-09T17:22:26.310+0000] {standard_task_runner.py:85} INFO - Job 28: Subtask fetch_manufacturer_data
+[2024-12-09T17:22:26.410+0000] {task_command.py:410} INFO - Running <TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-01-13T00:00:00+00:00 [running]> on host 916d98ee7a08
+[2024-12-09T17:22:26.613+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='manufacturer_etl' AIRFLOW_CTX_TASK_ID='fetch_manufacturer_data' AIRFLOW_CTX_EXECUTION_DATE='2024-01-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-01-13T00:00:00+00:00'
+[2024-12-09T17:22:26.615+0000] {manufacturer_etl.py:37} INFO - Fetching manufacturer details from the API.
+[2024-12-09T17:22:27.916+0000] {manufacturer_etl.py:43} INFO - Successfully fetched 100 manufacturer records.
+[2024-12-09T17:22:27.922+0000] {manufacturer_etl.py:48} INFO - Data saved to /opt/airflow/data/raw_manufacturer_data.json
+[2024-12-09T17:22:27.925+0000] {python.py:183} INFO - Done. Returned value was: None
+[2024-12-09T17:22:27.946+0000] {taskinstance.py:1350} INFO - Marking task as SUCCESS. dag_id=manufacturer_etl, task_id=fetch_manufacturer_data, execution_date=20240113T000000, start_date=20241209T172226, end_date=20241209T172227
+[2024-12-09T17:22:28.003+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 0
+[2024-12-09T17:22:28.039+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,15 @@
+[2024-12-10T07:30:16.902+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: load_data_to_postgres.load_json_to_postgres scheduled__2024-01-07T00:00:00+00:00 [queued]>
+[2024-12-10T07:30:16.918+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: load_data_to_postgres.load_json_to_postgres scheduled__2024-01-07T00:00:00+00:00 [queued]>
+[2024-12-10T07:30:16.919+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2024-12-10T07:30:16.942+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): load_json_to_postgres> on 2024-01-07 00:00:00+00:00
+[2024-12-10T07:30:16.949+0000] {standard_task_runner.py:57} INFO - Started process 159 to run task
+[2024-12-10T07:30:16.956+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'load_data_to_postgres', 'load_json_to_postgres', 'scheduled__2024-01-07T00:00:00+00:00', '--job-id', '401', '--raw', '--subdir', 'DAGS_FOLDER/loading_data.py', '--cfg-path', '/tmp/tmpjclqdzx2']
+[2024-12-10T07:30:16.958+0000] {standard_task_runner.py:85} INFO - Job 401: Subtask load_json_to_postgres
+[2024-12-10T07:30:17.055+0000] {task_command.py:410} INFO - Running <TaskInstance: load_data_to_postgres.load_json_to_postgres scheduled__2024-01-07T00:00:00+00:00 [running]> on host 916d98ee7a08
+[2024-12-10T07:30:17.264+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='load_data_to_postgres' AIRFLOW_CTX_TASK_ID='load_json_to_postgres' AIRFLOW_CTX_EXECUTION_DATE='2024-01-07T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-01-07T00:00:00+00:00'
+[2024-12-10T07:30:17.268+0000] {loading_data.py:50} INFO - Loaded 100 manufacturer records from JSON file.
+[2024-12-10T07:30:17.304+0000] {loading_data.py:99} INFO - Data loaded into PostgreSQL successfully.
+[2024-12-10T07:30:17.304+0000] {python.py:183} INFO - Done. Returned value was: None
+[2024-12-10T07:30:17.319+0000] {taskinstance.py:1350} INFO - Marking task as SUCCESS. dag_id=load_data_to_postgres, task_id=load_json_to_postgres, execution_date=20240107T000000, start_date=20241210T073016, end_date=20241210T073017
+[2024-12-10T07:30:17.338+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 0
+[2024-12-10T07:30:17.366+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

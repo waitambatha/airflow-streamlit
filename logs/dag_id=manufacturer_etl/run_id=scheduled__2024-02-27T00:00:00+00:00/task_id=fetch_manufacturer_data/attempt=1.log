@@ -1,0 +1,48 @@
+[2024-12-09T15:51:10.837+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-02-27T00:00:00+00:00 [queued]>
+[2024-12-09T15:51:10.847+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-02-27T00:00:00+00:00 [queued]>
+[2024-12-09T15:51:10.848+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2024-12-09T15:51:10.862+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): fetch_manufacturer_data> on 2024-02-27 00:00:00+00:00
+[2024-12-09T15:51:10.867+0000] {standard_task_runner.py:57} INFO - Started process 354 to run task
+[2024-12-09T15:51:10.870+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'manufacturer_etl', 'fetch_manufacturer_data', 'scheduled__2024-02-27T00:00:00+00:00', '--job-id', '73', '--raw', '--subdir', 'DAGS_FOLDER/manufacturer_etl.py', '--cfg-path', '/tmp/tmp4jccckr8']
+[2024-12-09T15:51:10.871+0000] {standard_task_runner.py:85} INFO - Job 73: Subtask fetch_manufacturer_data
+[2024-12-09T15:51:10.923+0000] {task_command.py:410} INFO - Running <TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-02-27T00:00:00+00:00 [running]> on host 782927b5dd22
+[2024-12-09T15:51:11.028+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='manufacturer_etl' AIRFLOW_CTX_TASK_ID='fetch_manufacturer_data' AIRFLOW_CTX_EXECUTION_DATE='2024-02-27T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-02-27T00:00:00+00:00'
+[2024-12-09T15:51:11.029+0000] {manufacturer_etl.py:37} INFO - Fetching manufacturer details from the API.
+[2024-12-09T15:51:19.874+0000] {manufacturer_etl.py:43} INFO - Successfully fetched 100 manufacturer records.
+[2024-12-09T15:51:19.888+0000] {manufacturer_etl.py:48} INFO - Data saved to /opt/airflow/data/raw_manufacturer_data.json
+[2024-12-09T15:51:19.890+0000] {python.py:183} INFO - Done. Returned value was: None
+[2024-12-09T15:51:19.901+0000] {taskinstance.py:1350} INFO - Marking task as SUCCESS. dag_id=manufacturer_etl, task_id=fetch_manufacturer_data, execution_date=20240227T000000, start_date=20241209T155110, end_date=20241209T155119
+[2024-12-09T15:51:19.939+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 0
+[2024-12-09T15:51:19.957+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-12-09T16:33:50.003+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-02-27T00:00:00+00:00 [queued]>
+[2024-12-09T16:33:50.022+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-02-27T00:00:00+00:00 [queued]>
+[2024-12-09T16:33:50.022+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2024-12-09T16:33:50.051+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): fetch_manufacturer_data> on 2024-02-27 00:00:00+00:00
+[2024-12-09T16:33:50.057+0000] {standard_task_runner.py:57} INFO - Started process 387 to run task
+[2024-12-09T16:33:50.063+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'manufacturer_etl', 'fetch_manufacturer_data', 'scheduled__2024-02-27T00:00:00+00:00', '--job-id', '178', '--raw', '--subdir', 'DAGS_FOLDER/manufacturer_etl.py', '--cfg-path', '/tmp/tmpnscg_tkh']
+[2024-12-09T16:33:50.065+0000] {standard_task_runner.py:85} INFO - Job 178: Subtask fetch_manufacturer_data
+[2024-12-09T16:33:50.184+0000] {task_command.py:410} INFO - Running <TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-02-27T00:00:00+00:00 [running]> on host 651f030c76c5
+[2024-12-09T16:33:50.422+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='manufacturer_etl' AIRFLOW_CTX_TASK_ID='fetch_manufacturer_data' AIRFLOW_CTX_EXECUTION_DATE='2024-02-27T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-02-27T00:00:00+00:00'
+[2024-12-09T16:33:50.425+0000] {manufacturer_etl.py:37} INFO - Fetching manufacturer details from the API.
+[2024-12-09T16:33:59.441+0000] {manufacturer_etl.py:43} INFO - Successfully fetched 100 manufacturer records.
+[2024-12-09T16:33:59.452+0000] {manufacturer_etl.py:48} INFO - Data saved to /opt/airflow/data/raw_manufacturer_data.json
+[2024-12-09T16:33:59.455+0000] {python.py:183} INFO - Done. Returned value was: None
+[2024-12-09T16:33:59.495+0000] {taskinstance.py:1350} INFO - Marking task as SUCCESS. dag_id=manufacturer_etl, task_id=fetch_manufacturer_data, execution_date=20240227T000000, start_date=20241209T163350, end_date=20241209T163359
+[2024-12-09T16:33:59.577+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 0
+[2024-12-09T16:33:59.644+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-12-09T17:28:15.431+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-02-27T00:00:00+00:00 [queued]>
+[2024-12-09T17:28:15.451+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-02-27T00:00:00+00:00 [queued]>
+[2024-12-09T17:28:15.451+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2024-12-09T17:28:15.482+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): fetch_manufacturer_data> on 2024-02-27 00:00:00+00:00
+[2024-12-09T17:28:15.489+0000] {standard_task_runner.py:57} INFO - Started process 339 to run task
+[2024-12-09T17:28:15.495+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'manufacturer_etl', 'fetch_manufacturer_data', 'scheduled__2024-02-27T00:00:00+00:00', '--job-id', '73', '--raw', '--subdir', 'DAGS_FOLDER/manufacturer_etl.py', '--cfg-path', '/tmp/tmp7c9f58c6']
+[2024-12-09T17:28:15.498+0000] {standard_task_runner.py:85} INFO - Job 73: Subtask fetch_manufacturer_data
+[2024-12-09T17:28:15.600+0000] {task_command.py:410} INFO - Running <TaskInstance: manufacturer_etl.fetch_manufacturer_data scheduled__2024-02-27T00:00:00+00:00 [running]> on host 916d98ee7a08
+[2024-12-09T17:28:15.807+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='manufacturer_etl' AIRFLOW_CTX_TASK_ID='fetch_manufacturer_data' AIRFLOW_CTX_EXECUTION_DATE='2024-02-27T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-02-27T00:00:00+00:00'
+[2024-12-09T17:28:15.810+0000] {manufacturer_etl.py:37} INFO - Fetching manufacturer details from the API.
+[2024-12-09T17:28:16.902+0000] {manufacturer_etl.py:43} INFO - Successfully fetched 100 manufacturer records.
+[2024-12-09T17:28:16.911+0000] {manufacturer_etl.py:48} INFO - Data saved to /opt/airflow/data/raw_manufacturer_data.json
+[2024-12-09T17:28:16.913+0000] {python.py:183} INFO - Done. Returned value was: None
+[2024-12-09T17:28:16.934+0000] {taskinstance.py:1350} INFO - Marking task as SUCCESS. dag_id=manufacturer_etl, task_id=fetch_manufacturer_data, execution_date=20240227T000000, start_date=20241209T172815, end_date=20241209T172816
+[2024-12-09T17:28:16.986+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 0
+[2024-12-09T17:28:17.023+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

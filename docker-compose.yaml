@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: airflow_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: masterclass
+      POSTGRES_DB: airflow
+    ports:
+      - "5433:5432"  # Port mapping to avoid conflicts with local PostgreSQL
+    volumes:
+      - ./data:/var/lib/postgresql/data  # Persist PostgreSQL data outside the container
+    networks:
+      - airflow_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d airflow"]
+      interval: 10s
+      retries: 5
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+
+  webserver:
+    image: apache/airflow:2.6.2
+    container_name: airflow_webserver
+    environment:
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: 'postgresql+psycopg2://postgres:masterclass@airflow_postgres:5432/airflow'
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8088:8080"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./data:/opt/airflow/data
+    networks:
+      - airflow_network
+    command: >
+      bash -c "airflow db init && airflow users create \
+      --username admin \
+      --firstname admin \
+      --lastname admin \
+      --role Admin \
+      --password admin \
+      --email admin@example.com && \
+      airflow webserver"
+    restart: always
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+
+  scheduler:
+    image: apache/airflow:2.6.2
+    container_name: airflow_scheduler
+    environment:
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: 'postgresql+psycopg2://postgres:masterclass@airflow_postgres:5432/airflow'
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./data:/opt/airflow/data
+    networks:
+      - airflow_network
+    command: "airflow scheduler"
+    restart: always
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+
+networks:
+  airflow_network:
+    driver: bridge
